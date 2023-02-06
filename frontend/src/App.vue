@@ -1,7 +1,10 @@
 <script setup>
 import "./assets/base.css";
+import TheIcon from "./components/TheIcon.vue";
 </script>
 
-<template></template>
+<template>
+  <TheIcon icon="home" />
+</template>
 
-<style scoped></style>
+<style></style>

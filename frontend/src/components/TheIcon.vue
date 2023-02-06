@@ -6,3 +6,9 @@ defineProps({
   icon: String,
 });
 </script>
+
+<template>
+  <svg>
+    <use :href="`${sprite}#icon-${icon}`"></use>
+  </svg>
+</template>
