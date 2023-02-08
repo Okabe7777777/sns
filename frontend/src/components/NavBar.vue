@@ -1,4 +1,5 @@
 <script setup>
+import TheAvatar from "./TheAvatar.vue";
 import TheIcon from "./TheIcon.vue";
 </script>
 <template>
@@ -13,12 +14,7 @@ import TheIcon from "./TheIcon.vue";
       <button><TheIcon icon="publish" /></button>
       <!-- dropdown -->
       <div class="profileDropDown">
-        <img
-          src="../assets/avatarDefault.png"
-          width="42"
-          height="42"
-          style="background: #ccc"
-        />
+        <TheAvatar :width="42" :height="42" style="cursor: pointer" />
         <!-- <div class="dropdownMenu">
           <ul class="profileMenu">
             <li><router-link to="/profile">个人主页</router-link></li>
