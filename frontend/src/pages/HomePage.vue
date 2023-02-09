@@ -43,18 +43,22 @@ import TheIcon from "../components/TheIcon.vue";
   margin: 0 auto;
   margin-top: 88px;
 }
+
 .postList {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
 }
+
 .postItem {
   box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
 }
+
 .postInfo {
   padding: 24px;
 }
+
 .postItem > img {
   width: 100%;
   height: 400px;
@@ -62,6 +66,7 @@ import TheIcon from "../components/TheIcon.vue";
   background: #eee;
   cursor: pointer;
 }
+
 .postMeta {
   display: grid;
   grid-template-areas:
@@ -70,18 +75,22 @@ import TheIcon from "../components/TheIcon.vue";
   grid-template-columns: 42px 1fr 3fr;
   row-gap: 6px;
 }
+
 .postMeta .avatar {
   grid-area: avatar;
 }
+
 .postMeta .postPubDate {
   grid-area: pubDate;
   color: #9f9f9f;
   font-size: 14px;
 }
+
 .postActions {
   grid-area: actions;
   justify-self: end;
 }
+
 .postDesc {
   margin-top: 28px;
   white-space: pre-line;
