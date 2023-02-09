@@ -1,4 +1,6 @@
 <script setup>
+import PostActions from "../components/PostActions.vue";
+import PostDetails from "../components/PostDetails.vue";
 import TheAvatar from "../components/TheAvatar.vue";
 import TheIcon from "../components/TheIcon.vue";
 </script>
@@ -18,14 +20,7 @@ import TheIcon from "../components/TheIcon.vue";
             <TheAvatar />
             <span>张雨枫</span>
             <span class="postPubDate">12小时之前发布</span>
-            <div class="postActions">
-              <TheIcon icon="like" fill="none" stroke="#000000" />
-              <span>1.5w</span>
-              <TheIcon icon="comment" fill="none" stroke="#000000" />
-              <span>1w</span>
-              <TheIcon icon="favorite" fill="none" stroke="#000000" />
-              <span>99w</span>
-            </div>
+            <PostActions />
           </div>
           <div class="postDesc">
             <p>
@@ -36,6 +31,7 @@ import TheIcon from "../components/TheIcon.vue";
         </div>
       </div>
     </div>
+    <PostDetails />
   </div>
 </template>
 <style scoped>
@@ -82,17 +78,7 @@ import TheIcon from "../components/TheIcon.vue";
 }
 .postActions {
   grid-area: actions;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-items: center;
   justify-self: end;
-  column-gap: 16px;
-  row-gap: 4px;
-}
-.postActions > svg {
-  width: 32px;
-  height: 32px;
-  grid-row: 1/2;
 }
 .postDesc {
   margin-top: 28px;
