@@ -1,4 +1,5 @@
 <script setup>
+import PostUpload from "../components/PostUpload.vue";
 import PostActions from "../components/PostActions.vue";
 import PostDetails from "../components/PostDetails.vue";
 import TheAvatar from "../components/TheAvatar.vue";
@@ -31,7 +32,8 @@ import TheIcon from "../components/TheIcon.vue";
         </div>
       </div>
     </div>
-    <PostDetails />
+    <!-- <PostDetails /> -->
+    <PostUpload />
   </div>
 </template>
 <style scoped>
