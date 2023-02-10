@@ -1,13 +1,16 @@
 <script setup>
 import "./assets/base.css";
 import NavBar from "./components/NavBar.vue";
+import TheLayout from "./components/TheLayout.vue";
 </script>
 
 <template>
   <header class="header">
     <NavBar />
   </header>
-  <router-view></router-view>
+  <TheLayout>
+    <router-view></router-view>
+  </TheLayout>
 </template>
 
 <!-- App.vue, 注意 style 为 scoped -->

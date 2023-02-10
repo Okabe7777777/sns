@@ -3,6 +3,7 @@ import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
 import TheModal from "./TheModal.vue";
 </script>
+
 <template>
   <TheModal>
     <div class="postDetails">
@@ -39,6 +40,7 @@ import TheModal from "./TheModal.vue";
     </div>
   </TheModal>
 </template>
+
 <style scoped>
 .postDetails {
   display: grid;

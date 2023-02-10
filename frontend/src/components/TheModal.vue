@@ -1,6 +1,7 @@
 <script setup>
 import TheIcon from "./TheIcon.vue";
 </script>
+
 <template>
   <Teleport to="body">
     <div class="modal">
@@ -12,6 +13,7 @@ import TheIcon from "./TheIcon.vue";
     </div>
   </Teleport>
 </template>
+
 <style scoped>
 .modal {
   position: fixed;

@@ -2,6 +2,7 @@
 import TheAvatar from "./TheAvatar.vue";
 import TheIcon from "./TheIcon.vue";
 </script>
+
 <template>
   <nav class="navbar">
     <router-link to="/"><img src="../assets/logo.svg" /></router-link>
@@ -25,6 +26,7 @@ import TheIcon from "./TheIcon.vue";
     </div>
   </nav>
 </template>
+
 <style scoped>
 .navbar {
   width: 80vw;

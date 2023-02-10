@@ -2,6 +2,7 @@
 import TheIcon from "./TheIcon.vue";
 import TheModal from "./TheModal.vue";
 </script>
+
 <template>
   <TheModal>
     <div class="postUpload">
@@ -19,6 +20,7 @@ import TheModal from "./TheModal.vue";
     </div>
   </TheModal>
 </template>
+
 <style scoped>
 .postUpload {
   width: 50vw;

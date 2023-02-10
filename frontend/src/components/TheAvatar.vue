@@ -13,9 +13,11 @@ defineProps({
   },
 });
 </script>
+
 <template>
   <img :src="src || defaultAvatar" class="avatar" />
 </template>
+
 <style scoped>
 .avatar {
   width: v-bind(width + "px");

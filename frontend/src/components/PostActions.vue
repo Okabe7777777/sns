@@ -1,6 +1,7 @@
 <script setup>
 import TheIcon from "./TheIcon.vue";
 </script>
+
 <template>
   <div class="postActions">
     <TheIcon icon="like" fill="none" stroke="#000000" />
@@ -11,6 +12,7 @@ import TheIcon from "./TheIcon.vue";
     <span>99w</span>
   </div>
 </template>
+
 <style scoped>
 .postActions {
   display: grid;
