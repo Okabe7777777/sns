@@ -1,6 +1,7 @@
 <script setup>
 import PostList from "../components/PostList.vue";
 import PostItem from "../components/PostItem.vue";
+import PostUpload from "../components/PostUpload.vue";
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import PostItem from "../components/PostItem.vue";
       <PostItem v-for="n in 10"> </PostItem>
     </PostList>
     <!-- <PostDetails /> -->
-    <!-- <PostUpload /> -->
+    <PostUpload />
   </div>
 </template>
 

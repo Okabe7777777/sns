@@ -1,4 +1,5 @@
 <script setup>
+import TheButton from "./TheButton.vue";
 import TheIcon from "./TheIcon.vue";
 import TheModal from "./TheModal.vue";
 </script>
@@ -15,7 +16,7 @@ import TheModal from "./TheModal.vue";
           placeholder="写点什么吧..."
           class="postContentInput"
         ></textarea>
-        <button class="pubBtn button">发布</button>
+        <TheButton class="pubBtn">发布</TheButton>
       </div>
     </div>
   </TheModal>
@@ -62,15 +63,6 @@ import TheModal from "./TheModal.vue";
 
 .postContentInput::placeholder {
   color: #757575;
-}
-
-.button {
-  border-radius: 8px;
-  padding: 10px 32px;
-  border: none;
-  color: white;
-  font-size: 16px;
-  background: #1da0ff;
 }
 
 .pubBtn {
