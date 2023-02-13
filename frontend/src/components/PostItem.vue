@@ -1,6 +1,6 @@
 <script setup>
-import PostActions from "../components/PostActions.vue";
-import TheAvatar from "../components/TheAvatar.vue";
+import PostActions from "./PostActions.vue";
+import TheAvatar from "./TheAvatar.vue";
 </script>
 
 <template>
