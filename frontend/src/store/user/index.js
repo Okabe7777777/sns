@@ -1,4 +1,4 @@
-import { getUser, register } from "../../apis/auth";
+import { getUser, register, login } from "../../apis/auth";
 
 export const user = {
   state() {

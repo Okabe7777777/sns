@@ -13,6 +13,12 @@ export async function request(
     },
     ...(body && { body: JSON.stringify(body) }),
   });
-  const result = await res.json();
-  return result;
+  try {
+    if (res.status < 300) {
+      const result = await res.json();
+      return result;
+    }
+  } catch (error) {
+    throw error;
+  }
 }
