@@ -1,7 +1,38 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 const isLogin = ref(true);
+
+const email = ref("");
+const username = ref("");
+const password = ref("");
+const agreementChecked = ref(false);
+
+const store = useStore();
+const router = useRouter();
+
+async function register() {
+  if (!agreementChecked.value) {
+    alert("请先阅读并同意隐私协议和使用规范");
+    return;
+  }
+  await store.dispatch("registerUser", {
+    email: email.value,
+    username: username.value,
+    password: password.value,
+  });
+  router.replace("/");
+}
+
+async function login() {
+  await store.dispatch("loginUser", {
+    email: email.value,
+    password: password.value,
+  });
+  router.replace("/");
+}
 </script>
 
 <template>
@@ -9,18 +40,30 @@ const isLogin = ref(true);
     <img src="../assets/phone.png" alt="" class="phoneImage" />
     <div class="loginForm">
       <img src="../assets/logo.svg" alt="" />
-      <form>
-        <input type="email" placeholder="邮箱" />
-        <input v-if="!isLogin" type="text" placeholder="用户名" />
-        <input type="password" placeholder="密码" />
-        <button type="submit" class="loginButton">
+      <form @submit.prevent>
+        <input type="email" placeholder="邮箱" v-model="email" />
+        <input
+          v-if="!isLogin"
+          type="text"
+          placeholder="用户名"
+          v-model="username"
+        />
+        <input type="password" placeholder="密码" v-model="password" />
+        <button
+          type="submit"
+          class="loginButton"
+          @click="isLogin ? login() : register()"
+        >
           {{ isLogin ? "登录" : "注册" }}
         </button>
         <p @click="isLogin = !isLogin" class="info">
           {{ isLogin ? "还没有账号？点击注册" : "已有账号？点击登录" }}
         </p>
         <div v-if="!isLogin" class="agreement">
-          <input type="checkbox" />勾选表示同意隐私协议和使用规范
+          <input
+            type="checkbox"
+            v-model="agreementChecked"
+          />勾选表示同意隐私协议和使用规范
         </div>
       </form>
     </div>
