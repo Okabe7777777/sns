@@ -1,6 +1,7 @@
 <script setup>
 import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
+import { dateToRelative } from ".././utils/date";
 
 defineProps({
   post: {
@@ -12,18 +13,23 @@ defineProps({
 
 <template>
   <div class="postItem">
-    <img src="" alt="" width="100%" height="100%" style="background: #eee" />
+    <img
+      :src="post.image"
+      alt=""
+      width="100%"
+      height="100%"
+      style="background: #eee"
+    />
     <div class="postInfo">
       <div class="postMeta">
-        <TheAvatar />
-        <span>张雨枫</span>
-        <span class="postPubDate">12小时之前发布</span>
+        <TheAvatar :src="post?.user?.avatar" />
+        <span>{{ post?.user?.name }}</span>
+        <span class="postPubDate">{{ dateToRelative(post.publishedAt) }}</span>
         <PostActions />
       </div>
       <div class="postDesc">
         <p>
-          这是一颗树。这是一颗树。这是一颗树。这是一颗树。这是一颗树。这是一颗树。
-          #植物#树#树叶#绿色#特别#长的#标签
+          {{ post.description }}
         </p>
       </div>
     </div>
