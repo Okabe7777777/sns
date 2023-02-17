@@ -2,6 +2,11 @@
 import PostList from "../components/PostList.vue";
 import PostItem from "../components/PostItem.vue";
 import PostUpload from "../components/PostUpload.vue";
+import { useStore } from "vuex";
+import { computed } from "vue";
+
+const store = useStore();
+const showPostUpload = computed(() => store.state.showPostUpload);
 </script>
 
 <template>
@@ -10,7 +15,7 @@ import PostUpload from "../components/PostUpload.vue";
       <PostItem v-for="n in 10"> </PostItem>
     </PostList>
     <!-- <PostDetails /> -->
-    <PostUpload />
+    <PostUpload v-if="showPostUpload" />
   </div>
 </template>
 
