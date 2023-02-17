@@ -8,11 +8,21 @@ import TheModal from "./TheModal.vue";
 const store = useStore();
 const imageObjUrl = ref("");
 
+const image = ref(null);
+const description = ref("");
+
 async function handleImageUpload(e) {
   const imageFile = e.target.files[0];
   if (imageFile) {
     imageObjUrl.value = URL.createObjectURL(imageFile);
+    image.value = imageFile;
   }
+}
+function publishPost() {
+  store.dispatch("uploadPost", {
+    image: image.value,
+    description: description.value,
+  });
 }
 </script>
 
@@ -33,8 +43,9 @@ async function handleImageUpload(e) {
         <textarea
           placeholder="写点什么吧..."
           class="postContentInput"
+          v-model="description"
         ></textarea>
-        <TheButton class="pubBtn">发布</TheButton>
+        <TheButton class="pubBtn" @click="publishPost">发布</TheButton>
       </div>
     </div>
   </TheModal>

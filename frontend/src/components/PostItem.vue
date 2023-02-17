@@ -1,6 +1,13 @@
 <script setup>
 import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
+
+defineProps({
+  post: {
+    type: Object,
+    default: {},
+  },
+});
 </script>
 
 <template>
