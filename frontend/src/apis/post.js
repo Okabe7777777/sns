@@ -27,3 +27,17 @@ export async function loadPosts() {
     },
   }));
 }
+
+export async function likePost(id) {
+  const response = await request(`/api/posts/${id}/like`, {
+    method: "PUT",
+  });
+  return response.data;
+}
+
+export async function favorPost(id) {
+  const response = await request(`/api/posts/${id}/favor`, {
+    method: "PUT",
+  });
+  return response.data;
+}

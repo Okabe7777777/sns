@@ -25,7 +25,15 @@ defineProps({
         <TheAvatar :src="post?.user?.avatar" />
         <span>{{ post?.user?.name }}</span>
         <span class="postPubDate">{{ dateToRelative(post.publishedAt) }}</span>
-        <PostActions />
+        <PostActions
+          :likes="post.liked_bies"
+          :comments="post.comments"
+          :favors="post.favored_bies"
+          :likedByMe="post.likedByMe"
+          :favoredByMe="post.favoredByMe"
+          @likeClick="$store.dispatch('toggleLike', post.id)"
+          @favorClick="$store.dispatch('toggleFavor', post.id)"
+        />
       </div>
       <div class="postDesc">
         <p>
