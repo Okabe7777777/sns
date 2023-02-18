@@ -1,21 +1,25 @@
 <script setup>
+import { dateToRelative } from "../utils/date";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
 import TheModal from "./TheModal.vue";
+
+const store = useStore();
+const post = computed(() => store.getters.postDetails);
 </script>
 
 <template>
-  <TheModal>
+  <TheModal @close="store.dispatch('hidePostDetails')">
     <div class="postDetails">
-      <img src="" alt="" class="postImage" />
+      <img :src="post.image" alt="" class="postImage" />
       <div class="postMeta">
         <div class="author">
-          <TheAvatar />
-          <span>张雨枫</span>
+          <TheAvatar :src="post.user?.avatar" />
+          <span>{{ post.user?.name }}</span>
         </div>
-        <pre class="postDesc">
-这是从我家阳台上拍的照片，希望大家喜欢，我家阳台上有好多树，树上有很多果实。</pre
-        >
+        <pre class="postDesc">{{ post.description }}</pre>
         <div class="comments">
           <div class="comment" v-for="n in 5">
             <TheAvatar />
@@ -25,8 +29,18 @@ import TheModal from "./TheModal.vue";
           </div>
         </div>
         <div class="actions">
-          <PostActions />
-          <span class="postPubDate">12h</span>
+          <PostActions
+            :likes="post.liked_bies"
+            :comments="post.comments"
+            :favors="post.favored_bies"
+            :likedByMe="post.likedByMe"
+            :favoredByMe="post.favoredByMe"
+            @likeClick="store.dispatch('toggleLike', post.id)"
+            @favorClick="store.dispatch('toggleFavor', post.id)"
+          />
+          <span class="postPubDate">
+            {{ dateToRelative(post.publishedAt) }}
+          </span>
           <input
             type="text"
             name="comment"
