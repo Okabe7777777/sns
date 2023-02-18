@@ -1,16 +1,23 @@
 <script setup>
 import PostList from "../components/PostList.vue";
 import PostItem from "../components/PostItem.vue";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
+const store = useStore();
+const searchResult = computed(() => store.state.post.searchResult);
+
+const route = useRoute();
+const term = computed(() => route.params.term);
 </script>
 
 <template>
   <div>
-    <h2 class="title">搜索结果：植物</h2>
+    <h2 class="title">搜索结果：{{ term }}</h2>
     <PostList>
-      <PostItem v-for="n in 10"> </PostItem>
+      <PostItem v-for="post in searchResult" :post="post"> </PostItem>
     </PostList>
-    <!-- <PostDetails /> -->
-    <!-- <PostUpload /> -->
   </div>
 </template>
 
