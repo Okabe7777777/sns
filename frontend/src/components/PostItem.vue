@@ -15,6 +15,7 @@ defineProps({
   <div class="postItem">
     <img
       :src="post.image"
+      @click="$store.dispatch('showPostDetails', post.id)"
       alt=""
       width="100%"
       height="100%"
@@ -33,6 +34,7 @@ defineProps({
           :favoredByMe="post.favoredByMe"
           @likeClick="$store.dispatch('toggleLike', post.id)"
           @favorClick="$store.dispatch('toggleFavor', post.id)"
+          @commentsClick="$store.dispatch('showPostDetails', post.id)"
         />
       </div>
       <div class="postDesc">
