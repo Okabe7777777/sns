@@ -41,14 +41,24 @@ async function login() {
     <div class="loginForm">
       <img src="../assets/logo.svg" alt="" />
       <form @submit.prevent>
-        <input type="email" placeholder="邮箱" v-model="email" />
+        <input
+          type="email"
+          placeholder="邮箱"
+          v-model="email"
+          autocomplete="off"
+        />
         <input
           v-if="!isLogin"
           type="text"
           placeholder="用户名"
           v-model="username"
         />
-        <input type="password" placeholder="密码" v-model="password" />
+        <input
+          type="password"
+          placeholder="密码"
+          v-model="password"
+          autocomplete="off"
+        />
         <button
           type="submit"
           class="loginButton"

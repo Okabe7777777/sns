@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import TheAvatar from "./TheAvatar.vue";
@@ -8,6 +8,8 @@ import TheIcon from "./TheIcon.vue";
 const showDropdown = ref(false);
 const store = useStore();
 const router = useRouter();
+
+const user = computed(() => store.state.user.user);
 
 function publishPost() {
   store.commit("changeShowPostUpload", true);
