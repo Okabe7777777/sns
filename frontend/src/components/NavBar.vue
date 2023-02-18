@@ -1,9 +1,11 @@
 <script setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import TheAvatar from "./TheAvatar.vue";
 import TheIcon from "./TheIcon.vue";
 
+const showDropdown = ref(false);
 const store = useStore();
 const router = useRouter();
 
@@ -20,6 +22,11 @@ async function searchPosts(e) {
     },
   });
 }
+
+async function logout() {
+  await store.dispatch("logoutUser");
+  router.push("/login");
+}
 </script>
 
 <template>
@@ -34,13 +41,23 @@ async function searchPosts(e) {
       <button @click="publishPost()"><TheIcon icon="publish" /></button>
       <!-- dropdown -->
       <div class="profileDropDown">
-        <TheAvatar :width="42" :height="42" style="cursor: pointer" />
-        <!-- <div class="dropdownMenu">
+        <TheAvatar
+          :width="42"
+          :height="42"
+          style="cursor: pointer"
+          @click="showDropdown = !showDropdown"
+          :src="user.avatar"
+        />
+        <div
+          class="dropdownMenu"
+          v-show="showDropdown"
+          @click="showDropdown = false"
+        >
           <ul class="profileMenu">
             <li><router-link to="/profile">个人主页</router-link></li>
-            <li>退出登录</li>
+            <li @click="logout">退出登录</li>
           </ul>
-        </div> -->
+        </div>
       </div>
     </div>
   </nav>
