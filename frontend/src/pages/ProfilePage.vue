@@ -1,13 +1,11 @@
 <script setup>
 import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
-import { useStore } from "vuex";
-import { computed, ref, reactive, watch } from "vue";
+import { ref, reactive, watch } from "vue";
 import { loadPostsByMe, loadPostsLikeOrFavoredByMe } from "../apis/post";
+import { useUserStore } from "../stores/user";
 
-const store = useStore();
-
-const user = computed(() => store.state.user.user);
+const userStore = useUserStore();
 
 const tabs = ref([
   {
@@ -62,17 +60,17 @@ watch(
 <template>
   <div>
     <div class="profileContainer">
-      <TheAvatar :width="186" :height="186" :src="user.avatar" />
+      <TheAvatar :width="186" :height="186" :src="userStore.users.avatar" />
       <div class="profile">
         <p class="name">
-          <span>{{ user.name }}</span>
+          <span>{{ userStore.users.name }}</span>
           <router-link to="/profile/edit">编辑个人资料</router-link>
         </p>
-        <p class="handle">{{ user.username }}</p>
+        <p class="handle">{{ userStore.users.username }}</p>
         <div class="description">
-          <pre>{{ user.intro }}</pre>
+          <pre>{{ userStore.users.intro }}</pre>
         </div>
-        <p class="website">{{ user.website }}</p>
+        <p class="website">{{ userStore.users.website }}</p>
       </div>
     </div>
     <div class="tabs">

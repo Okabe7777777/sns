@@ -1,7 +1,8 @@
 <script setup>
 import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
-import { dateToRelative } from ".././utils/date";
+import { dateToRelative } from "../utils/date";
+import { usePostStore } from "../stores/post";
 
 defineProps({
   post: {
@@ -9,13 +10,15 @@ defineProps({
     default: {},
   },
 });
+
+const postStore = usePostStore();
 </script>
 
 <template>
   <div class="postItem">
     <img
       :src="post.image"
-      @click="$store.dispatch('showPostDetails', post.id)"
+      @click="postStore.ayShowPostDetails(post.id)"
       alt=""
       width="100%"
       height="100%"
@@ -32,9 +35,9 @@ defineProps({
           :favors="post.favored_bies"
           :likedByMe="post.likedByMe"
           :favoredByMe="post.favoredByMe"
-          @likeClick="$store.dispatch('toggleLike', post.id)"
-          @favorClick="$store.dispatch('toggleFavor', post.id)"
-          @commentsClick="$store.dispatch('showPostDetails', post.id)"
+          @likeClick="postStore.ayToggleLike(post.id)"
+          @favorClick="postStore.ayToggleFavor(post.id)"
+          @commentsClick="postStore.ayShowPostDetails(post.id)"
         />
       </div>
       <div class="postDesc">

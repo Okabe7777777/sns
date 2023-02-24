@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useUserStore } from "../stores/user";
 
 const isLogin = ref(true);
 
@@ -10,7 +10,7 @@ const username = ref("");
 const password = ref("");
 const agreementChecked = ref(false);
 
-const store = useStore();
+const userStore = useUserStore();
 const router = useRouter();
 
 async function register() {
@@ -18,7 +18,7 @@ async function register() {
     alert("请先阅读并同意隐私协议和使用规范");
     return;
   }
-  await store.dispatch("registerUser", {
+  await userStore.ayRegisterUser({
     email: email.value,
     username: username.value,
     password: password.value,
@@ -27,7 +27,7 @@ async function register() {
 }
 
 async function login() {
-  await store.dispatch("loginUser", {
+  await userStore.ayLoginUser({
     email: email.value,
     password: password.value,
   });
@@ -41,24 +41,14 @@ async function login() {
     <div class="loginForm">
       <img src="../assets/logo.svg" alt="" />
       <form @submit.prevent>
-        <input
-          type="email"
-          placeholder="邮箱"
-          v-model="email"
-          autocomplete="off"
-        />
+        <input type="email" placeholder="邮箱" v-model="email" />
         <input
           v-if="!isLogin"
           type="text"
           placeholder="用户名"
           v-model="username"
         />
-        <input
-          type="password"
-          placeholder="密码"
-          v-model="password"
-          autocomplete="off"
-        />
+        <input type="password" placeholder="密码" v-model="password" />
         <button
           type="submit"
           class="loginButton"

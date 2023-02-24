@@ -1,12 +1,11 @@
 <script setup>
 import PostList from "../components/PostList.vue";
 import PostItem from "../components/PostItem.vue";
-import { useStore } from "vuex";
-import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { usePostStore } from "../stores/post";
 
-const store = useStore();
-const searchResult = computed(() => store.state.post.searchResult);
+const postStore = usePostStore();
+const searchResult = postStore.searchResult;
 
 const route = useRoute();
 const term = computed(() => route.params.term);

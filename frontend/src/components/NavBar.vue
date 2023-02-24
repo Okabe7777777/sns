@@ -1,22 +1,24 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useShowPostStore } from "../stores/showPost";
+import { usePostStore } from "../stores/post";
+import { useUserStore } from "../stores/user";
 import TheAvatar from "./TheAvatar.vue";
 import TheIcon from "./TheIcon.vue";
 
 const showDropdown = ref(false);
-const store = useStore();
+const userStore = useUserStore();
+const postStore = usePostStore();
+const showPostStore = useShowPostStore();
 const router = useRouter();
 
-const user = computed(() => store.state.user.user);
-
 function publishPost() {
-  store.commit("changeShowPostUpload", true);
+  showPostStore.changeShowPostUpload(true);
 }
 
 async function searchPosts(e) {
-  await store.dispatch("searchPosts", e.target.value);
+  postStore.aySearchPosts(e.target.value);
   router.push({
     name: "search_result",
     params: {
@@ -26,7 +28,7 @@ async function searchPosts(e) {
 }
 
 async function logout() {
-  await store.dispatch("logoutUser");
+  await userStore.ayLogoutUser();
   router.push("/login");
 }
 </script>
@@ -48,7 +50,7 @@ async function logout() {
           :height="42"
           style="cursor: pointer"
           @click="showDropdown = !showDropdown"
-          :src="user.avatar"
+          :src="userStore.users.avatar"
         />
         <div
           class="dropdownMenu"

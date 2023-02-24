@@ -1,30 +1,30 @@
 <script setup>
 import { dateToRelative } from "../utils/date";
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
+import { ref } from "vue";
 import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
 import TheModal from "./TheModal.vue";
+import { usePostStore } from "../stores/post";
+import { useCommentStore } from "../stores/comment";
 
 const content = ref("");
 
-const store = useStore();
-const post = computed(() => store.getters.postDetails);
-const comments = computed(() => store.state.comment.list);
+const postStore = usePostStore();
+const commentStore = useCommentStore();
 </script>
 
 <template>
-  <TheModal @close="store.dispatch('hidePostDetails')">
+  <TheModal @close="postStore.ayHidePostDetails()">
     <div class="postDetails">
-      <img :src="post.image" alt="" class="postImage" />
+      <img :src="postStore.postDetails.image" alt="" class="postImage" />
       <div class="postMeta">
         <div class="author">
-          <TheAvatar :src="post.user?.avatar" />
-          <span>{{ post.user?.name }}</span>
+          <TheAvatar :src="postStore.postDetails.user?.avatar" />
+          <span>{{ postStore.postDetails.user?.name }}</span>
         </div>
-        <pre class="postDesc">{{ post.description }}</pre>
+        <pre class="postDesc">{{ postStore.postDetails.description }}</pre>
         <div class="comments">
-          <div class="comment" v-for="comment in comments">
+          <div class="comment" v-for="comment in commentStore.list">
             <TheAvatar :src="comment.user?.avatar" />
             <span class="user">{{ comment.user?.name }}</span>
             <span class="commentDate">{{
@@ -35,16 +35,16 @@ const comments = computed(() => store.state.comment.list);
         </div>
         <div class="actions">
           <PostActions
-            :likes="post.liked_bies"
-            :comments="post.comments"
-            :favors="post.favored_bies"
-            :likedByMe="post.likedByMe"
-            :favoredByMe="post.favoredByMe"
-            @likeClick="store.dispatch('toggleLike', post.id)"
-            @favorClick="store.dispatch('toggleFavor', post.id)"
+            :likes="postStore.postDetails.liked_bies"
+            :comments="postStore.postDetails.comments"
+            :favors="postStore.postDetails.favored_bies"
+            :likedByMe="postStore.postDetails.likedByMe"
+            :favoredByMe="postStore.postDetails.favoredByMe"
+            @likeClick="postStore.ayToggleLike(postStore.postDetails.id)"
+            @favorClick="postStore.ayToggleFavor(postStore.postDetails.id)"
           />
           <span class="postPubDate">
-            {{ dateToRelative(post.publishedAt) }}
+            {{ dateToRelative(postStore.postDetails.publishedAt) }}
           </span>
           <input
             type="text"
@@ -55,7 +55,12 @@ const comments = computed(() => store.state.comment.list);
             placeholder="写一条评论吧！"
           />
           <button
-            @click="store.dispatch('addComment', { content, postId: post.id })"
+            @click="
+              commentStore.ayAddComment({
+                content,
+                postId: postStore.postDetails.id,
+              })
+            "
             class="commentPubBtn"
           >
             发布

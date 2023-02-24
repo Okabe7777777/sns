@@ -13,6 +13,7 @@ export async function request(
     },
     ...(body && { body: JSON.stringify(body) }),
   });
+
   try {
     if (res.status < 300) {
       const result = await res.json();

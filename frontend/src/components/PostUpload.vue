@@ -1,11 +1,13 @@
 <script setup>
+import { usePostStore } from "../stores/post";
 import { ref } from "vue";
-import { useStore } from "vuex";
 import TheButton from "./TheButton.vue";
 import TheIcon from "./TheIcon.vue";
 import TheModal from "./TheModal.vue";
+import { useShowPostStore } from "../stores/showPost";
 
-const store = useStore();
+const postStore = usePostStore();
+const showPostStore = useShowPostStore();
 const imageObjUrl = ref("");
 
 const image = ref(null);
@@ -19,7 +21,7 @@ async function handleImageUpload(e) {
   }
 }
 function publishPost() {
-  store.dispatch("uploadPost", {
+  postStore.ayUploadPost({
     image: image.value,
     description: description.value,
   });
@@ -27,7 +29,7 @@ function publishPost() {
 </script>
 
 <template>
-  <TheModal @close="store.commit('changeShowPostUpload', false)">
+  <TheModal @close="showPostStore.changeShowPostUpload(false)">
     <div class="postUpload">
       <label class="upload">
         <img v-if="imageObjUrl" :src="imageObjUrl" class="preview" />

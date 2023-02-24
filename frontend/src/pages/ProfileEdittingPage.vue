@@ -1,23 +1,22 @@
 <script setup>
 import { uploadFile } from "../apis/file";
-import { computed, reactive } from "vue";
-import { useStore } from "vuex";
+import { reactive } from "vue";
 import TheAvatar from "../components/TheAvatar.vue";
 import TheButton from "../components/TheButton.vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "../stores/user";
 
-const store = useStore();
+const userStore = useUserStore();
 const router = useRouter();
 
-const user = computed(() => store.state.user.user);
 const profileData = reactive({
-  avatar: user.value.avatar,
-  username: user.value.username,
-  name: user.value.name,
-  intro: user.value.intro,
-  mobilePhone: user.value.mobilePhone,
-  gender: user.value.gender,
-  website: user.value.website,
+  avatar: userStore.users.avatar,
+  username: userStore.users.username,
+  name: userStore.users.name,
+  intro: userStore.users.intro,
+  mobilePhone: userStore.users.mobilePhone,
+  gender: userStore.users.gender,
+  website: userStore.users.website,
 });
 
 async function uploadAvatar(e) {
@@ -27,7 +26,7 @@ async function uploadAvatar(e) {
 }
 
 async function updateUser() {
-  store.dispatch("updateUser", profileData);
+  userStore.ayUpdateUser(profileData);
   router.push("/profile");
 }
 </script>
