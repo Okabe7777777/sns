@@ -5,6 +5,7 @@ export async function createPost(image, description) {
   const formData = new FormData();
   formData.append("files.image", image);
   formData.append("data", JSON.stringify({ description }));
+  console.log(formData);
 
   await fetch("/api/posts", {
     method: "POST",
