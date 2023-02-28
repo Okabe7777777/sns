@@ -31,7 +31,7 @@ export async function loadPosts(filters = "") {
   return response.data.map((post) => ({
     id: post?.id,
     ...post?.attributes,
-    image: post?.attributes?.image?.data?.[0]?.attributes?.url,
+    image: post?.attributes?.image?.data?.[0]?.attributes?.formats?.medium?.url,
     user: {
       id: post?.attributes?.user?.data?.id,
       ...post?.attributes?.user?.data?.attributes,
