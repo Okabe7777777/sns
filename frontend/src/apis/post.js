@@ -5,11 +5,19 @@ export async function createPost(image, description) {
   const formData = new FormData();
   formData.append("files.image", image);
   formData.append("data", JSON.stringify({ description }));
-  console.log(formData);
 
   await fetch("/api/posts", {
     method: "POST",
     body: formData,
+    headers: {
+      Authorization: `Bearer ${getJwtToken()}`,
+    },
+  });
+}
+
+export async function delPost(id) {
+  await fetch(`/api/posts/${id}`, {
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${getJwtToken()}`,
     },

@@ -35,14 +35,21 @@ async function logout() {
 
 <template>
   <nav class="navbar">
-    <router-link to="/"><img src="../assets/logo.svg" /></router-link>
+    <router-link to="/">
+      <img width="105" height="27" src="../assets/logo.svg" />
+    </router-link>
     <div class="searchInput">
       <input type="text" @change="searchPosts" />
       <TheIcon icon="search" />
     </div>
     <div class="navItems">
       <router-link to="/"><TheIcon icon="home" /></router-link>
-      <button @click="publishPost()"><TheIcon icon="publish" /></button>
+      <button
+        :disabled="$route.name === 'profile' || $route.name === 'profileEdit'"
+        @click="publishPost()"
+      >
+        <TheIcon icon="publish" />
+      </button>
       <!-- dropdown -->
       <div class="profileDropDown">
         <TheAvatar
@@ -79,6 +86,7 @@ async function logout() {
 .navbar svg {
   width: 38px;
   height: 38px;
+  display: inline-block;
 }
 
 .searchInput {
@@ -89,7 +97,6 @@ async function logout() {
   width: 100%;
   padding: 12px;
   padding-left: 36px;
-
   background: #f1f1f1;
   border-radius: 14px;
   border: none;
@@ -97,7 +104,6 @@ async function logout() {
 
 .searchInput > svg {
   position: absolute;
-  left: 0;
   top: 11px;
   left: 12px;
 }

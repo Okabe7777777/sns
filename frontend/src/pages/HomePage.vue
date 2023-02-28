@@ -18,8 +18,7 @@ onMounted(() => {
 <template>
   <div>
     <PostList>
-      <PostItem v-for="post in postStore.list" :post="post" :key="post.id">
-      </PostItem>
+      <PostItem v-for="post in postStore.list" :post="post" :key="post.id" />
     </PostList>
     <PostDetails v-if="showPostStore.showPostDetails" />
     <PostUpload v-if="showPostStore.showPostUpload" />

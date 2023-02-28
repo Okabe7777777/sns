@@ -6,23 +6,25 @@ import TheAvatar from "./TheAvatar.vue";
 import TheModal from "./TheModal.vue";
 import { usePostStore } from "../stores/post";
 import { useCommentStore } from "../stores/comment";
+import { storeToRefs } from "pinia";
 
 const content = ref("");
 
 const postStore = usePostStore();
 const commentStore = useCommentStore();
+const { postDetails } = storeToRefs(postStore);
 </script>
 
 <template>
   <TheModal @close="postStore.ayHidePostDetails()">
     <div class="postDetails">
-      <img :src="postStore.postDetails.image" alt="" class="postImage" />
+      <img :src="postDetails.image" alt="" class="postImage" />
       <div class="postMeta">
         <div class="author">
-          <TheAvatar :src="postStore.postDetails.user?.avatar" />
-          <span>{{ postStore.postDetails.user?.name }}</span>
+          <TheAvatar :src="postDetails.user?.avatar" />
+          <span>{{ postDetails.user?.name }}</span>
         </div>
-        <pre class="postDesc">{{ postStore.postDetails.description }}</pre>
+        <pre class="postDesc">{{ postDetails.description }}</pre>
         <div class="comments">
           <div class="comment" v-for="comment in commentStore.list">
             <TheAvatar :src="comment.user?.avatar" />
@@ -35,16 +37,16 @@ const commentStore = useCommentStore();
         </div>
         <div class="actions">
           <PostActions
-            :likes="postStore.postDetails.liked_bies"
-            :comments="postStore.postDetails.comments"
-            :favors="postStore.postDetails.favored_bies"
-            :likedByMe="postStore.postDetails.likedByMe"
-            :favoredByMe="postStore.postDetails.favoredByMe"
-            @likeClick="postStore.ayToggleLike(postStore.postDetails.id)"
-            @favorClick="postStore.ayToggleFavor(postStore.postDetails.id)"
+            :likes="postDetails.liked_bies"
+            :comments="postDetails.comments"
+            :favors="postDetails.favored_bies"
+            :likedByMe="postDetails.likedByMe"
+            :favoredByMe="postDetails.favoredByMe"
+            @likeClick="postStore.ayToggleLike(postDetails.id)"
+            @favorClick="postStore.ayToggleFavor(postDetails.id)"
           />
           <span class="postPubDate">
-            {{ dateToRelative(postStore.postDetails.publishedAt) }}
+            {{ dateToRelative(postDetails.publishedAt) }}
           </span>
           <input
             type="text"
@@ -58,7 +60,7 @@ const commentStore = useCommentStore();
             @click="
               commentStore.ayAddComment({
                 content,
-                postId: postStore.postDetails.id,
+                postId: postDetails.id,
               })
             "
             class="commentPubBtn"

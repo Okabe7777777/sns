@@ -1,9 +1,14 @@
 <script setup>
 import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
+import TheButton from "../components/TheButton.vue";
 import { ref, reactive, watch } from "vue";
-import { loadPostsByMe, loadPostsLikeOrFavoredByMe } from "../apis/post";
 import { useUserStore } from "../stores/user";
+import {
+  loadPostsByMe,
+  loadPostsLikeOrFavoredByMe,
+  delPost,
+} from "../apis/post";
 
 const userStore = useUserStore();
 
@@ -35,19 +40,13 @@ watch(
   async () => {
     switch (currentTab.value) {
       case 0:
-        if (myPosts[0].length === 0) {
-          myPosts[0] = await loadPostsByMe();
-        }
+        myPosts[0] = await loadPostsByMe();
         break;
       case 1:
-        if (myPosts[1].length === 0) {
-          myPosts[1] = await loadPostsLikeOrFavoredByMe();
-        }
+        myPosts[1] = await loadPostsLikeOrFavoredByMe();
         break;
       case 2:
-        if (myPosts[2].length === 0) {
-          myPosts[2] = await loadPostsLikeOrFavoredByMe("favors");
-        }
+        myPosts[2] = await loadPostsLikeOrFavoredByMe("favors");
         break;
       default:
         return;
@@ -55,6 +54,11 @@ watch(
   },
   { immediate: true }
 );
+
+async function del(id) {
+  await delPost(id);
+  myPosts[0] = await loadPostsByMe();
+}
 </script>
 
 <template>
@@ -88,12 +92,12 @@ watch(
     <div class="tabContent">
       <p>{{ myPosts[currentTab].length }}</p>
       <div class="posts">
-        <img
-          v-for="post in myPosts[currentTab]"
-          :src="post.image"
-          :key="post.id"
-          class="postImage"
-        />
+        <div v-for="post in myPosts[currentTab]">
+          <img :src="post.image" :key="post.id" class="postImage" />
+          <TheButton color="red" v-if="currentTab === 0" @click="del(post.id)">
+            删除
+          </TheButton>
+        </div>
       </div>
     </div>
   </div>
