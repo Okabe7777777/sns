@@ -1,10 +1,10 @@
 <script setup>
 import { uploadFile } from "../apis/file";
-import { reactive } from "vue";
+import { useUserStore } from "../stores/user";
 import TheAvatar from "../components/TheAvatar.vue";
 import TheButton from "../components/TheButton.vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user";
+import { reactive } from "vue";
 
 const userStore = useUserStore();
 const router = useRouter();

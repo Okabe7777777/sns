@@ -1,22 +1,25 @@
 <script setup>
 import PostList from "../components/PostList.vue";
 import PostItem from "../components/PostItem.vue";
-import { useRoute } from "vue-router";
+import PostDetails from "../components/PostDetails.vue";
 import { usePostStore } from "../stores/post";
+import { useShowPostStore } from "../stores/showPost";
 
+const showPostStore = useShowPostStore();
 const postStore = usePostStore();
-const searchResult = postStore.searchResult;
-
-const route = useRoute();
-const term = computed(() => route.params.term);
 </script>
 
 <template>
   <div>
-    <h2 class="title">搜索结果：{{ term }}</h2>
+    <h2 class="title">搜索结果：</h2>
     <PostList>
-      <PostItem v-for="post in searchResult" :post="post"> </PostItem>
+      <PostItem
+        v-for="post in postStore.searchResult"
+        :post="post"
+        :key="post.id"
+      />
     </PostList>
+    <PostDetails v-if="showPostStore.showPostDetails" />
   </div>
 </template>
 

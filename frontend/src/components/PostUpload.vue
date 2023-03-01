@@ -1,10 +1,10 @@
 <script setup>
 import { usePostStore } from "../stores/post";
-import { ref } from "vue";
+import { useShowPostStore } from "../stores/showPost";
 import TheButton from "./TheButton.vue";
 import TheIcon from "./TheIcon.vue";
 import TheModal from "./TheModal.vue";
-import { useShowPostStore } from "../stores/showPost";
+import { ref } from "vue";
 
 const postStore = usePostStore();
 const showPostStore = useShowPostStore();

@@ -1,5 +1,4 @@
 <script setup>
-import PostActions from "./PostActions.vue";
 import TheAvatar from "./TheAvatar.vue";
 import { dateToRelative } from "../utils/date";
 import { usePostStore } from "../stores/post";
@@ -29,16 +28,7 @@ const postStore = usePostStore();
         <TheAvatar :src="post?.user?.avatar" />
         <span>{{ post?.user?.name }}</span>
         <span class="postPubDate">{{ dateToRelative(post.publishedAt) }}</span>
-        <PostActions
-          :likes="post.liked_bies"
-          :comments="post.comments"
-          :favors="post.favored_bies"
-          :likedByMe="post.likedByMe"
-          :favoredByMe="post.favoredByMe"
-          @likeClick="postStore.ayToggleLike(post.id)"
-          @favorClick="postStore.ayToggleFavor(post.id)"
-          @commentsClick="postStore.ayShowPostDetails(post.id)"
-        />
+        <slot></slot>
       </div>
       <div class="postDesc">
         <p>
@@ -84,11 +74,6 @@ const postStore = usePostStore();
   grid-area: pubDate;
   color: #9f9f9f;
   font-size: 14px;
-}
-
-.postActions {
-  grid-area: actions;
-  justify-self: end;
 }
 
 .postDesc {

@@ -17,28 +17,47 @@ const emit = defineEmits(["likeClick", "commentsClick", "favorClick"]);
     <TheIcon
       icon="like"
       @click="emit('likeClick')"
-      :fill="likedByMe ? '#FF3C3C' : 'none'"
-      :stroke="likedByMe ? '#FF3C3C' : '#000000'"
+      :class="likedByMe ? 'red' : 'white_1'"
     />
     <span>{{ likes || "" }}</span>
-    <TheIcon
-      icon="comment"
-      @click="emit('commentsClick')"
-      fill="none"
-      stroke="#000000"
-    />
+    <TheIcon icon="comment" @click="emit('commentsClick')" fill="none" />
     <span>{{ comments || "" }}</span>
     <TheIcon
       icon="favorite"
       @click="emit('favorClick')"
-      :fill="favoredByMe ? '#FF3C3C' : 'none'"
-      :stroke="favoredByMe ? '#FF3C3C' : '#000000'"
+      :class="favoredByMe ? 'yellow' : 'white_2'"
     />
     <span>{{ favors || "" }}</span>
   </div>
 </template>
 
 <style scoped>
+.white_1 {
+  fill: rgb(218, 217, 217);
+  transition: all 1s;
+}
+
+.white_1:hover {
+  fill: red;
+}
+
+.red {
+  fill: red;
+}
+
+.white_2 {
+  fill: rgb(218, 217, 217);
+  transition: all 1s;
+}
+
+.white_2:hover {
+  fill: yellow;
+}
+
+.yellow {
+  fill: yellow;
+}
+
 .postActions {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

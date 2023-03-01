@@ -1,11 +1,11 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { useShowPostStore } from "../stores/showPost";
 import { usePostStore } from "../stores/post";
 import { useUserStore } from "../stores/user";
 import TheAvatar from "./TheAvatar.vue";
 import TheIcon from "./TheIcon.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const showDropdown = ref(false);
 const userStore = useUserStore();
@@ -18,13 +18,14 @@ function publishPost() {
 }
 
 async function searchPosts(e) {
-  postStore.aySearchPosts(e.target.value);
+  await postStore.aySearchPosts(e.target.value);
   router.push({
     name: "search_result",
-    params: {
-      term: e.target.value,
+    state: {
+      ...e.target.value,
     },
   });
+  e.target.value = "";
 }
 
 async function logout() {
@@ -45,7 +46,11 @@ async function logout() {
     <div class="navItems">
       <router-link to="/"><TheIcon icon="home" /></router-link>
       <button
-        :disabled="$route.name === 'profile' || $route.name === 'profileEdit'"
+        :disabled="
+          $route.name === 'profile' ||
+          $route.name === 'profileEdit' ||
+          $route.name === 'search_result'
+        "
         @click="publishPost()"
       >
         <TheIcon icon="publish" />
