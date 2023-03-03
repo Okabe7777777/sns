@@ -52,7 +52,7 @@ const { postDetails } = storeToRefs(postStore);
             type="text"
             name="comment"
             v-model="content"
-            id=""
+            id="comment"
             class="commentInput"
             placeholder="写一条评论吧！"
           />
