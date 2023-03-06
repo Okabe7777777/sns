@@ -18,14 +18,17 @@ function publishPost() {
 }
 
 async function searchPosts(e) {
-  await postStore.aySearchPosts(e.target.value);
-  router.push({
-    name: "search_result",
-    state: {
-      ...e.target.value,
-    },
-  });
-  e.target.value = "";
+  const term = e.target.value.trim();
+  if (term) {
+    await postStore.aySearchPosts(term);
+    router.push({
+      name: "search_result",
+      state: {
+        ...term,
+      },
+    });
+    e.target.value = "";
+  }
 }
 
 async function logout() {

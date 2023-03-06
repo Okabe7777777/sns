@@ -13,6 +13,17 @@ const content = ref("");
 const postStore = usePostStore();
 const commentStore = useCommentStore();
 const { postDetails } = storeToRefs(postStore);
+const { postComments } = storeToRefs(commentStore);
+
+async function addComment() {
+  if (content.value.trim()) {
+    await commentStore.ayAddComment({
+      content: content.value,
+      postId: postDetails.value.id,
+    });
+    content.value = "";
+  }
+}
 </script>
 
 <template>
@@ -26,7 +37,7 @@ const { postDetails } = storeToRefs(postStore);
         </div>
         <pre class="postDesc">{{ postDetails.description }}</pre>
         <div class="comments">
-          <div class="comment" v-for="comment in commentStore.list">
+          <div class="comment" v-for="comment in postComments">
             <TheAvatar :src="comment.user?.avatar" />
             <span class="user">{{ comment.user?.name }}</span>
             <span class="commentDate">{{
@@ -55,18 +66,9 @@ const { postDetails } = storeToRefs(postStore);
             id="comment"
             class="commentInput"
             placeholder="写一条评论吧！"
+            @keyup.enter="addComment"
           />
-          <button
-            @click="
-              commentStore.ayAddComment({
-                content,
-                postId: postDetails.id,
-              })
-            "
-            class="commentPubBtn"
-          >
-            发布
-          </button>
+          <button @click="addComment" class="commentPubBtn">发布</button>
         </div>
       </div>
     </div>

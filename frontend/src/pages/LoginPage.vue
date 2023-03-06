@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../stores/user";
+import { emailCheck, passwordCheck } from "../utils/validation";
 
 const isLogin = ref(true);
 
@@ -17,21 +18,30 @@ async function register() {
   if (!agreementChecked.value) {
     alert("请先阅读并同意隐私协议和使用规范");
     return;
+  } else {
+    await userStore.ayRegisterUser({
+      email: email.value,
+      username: username.value,
+      password: password.value,
+    });
+    router.replace("/");
   }
-  await userStore.ayRegisterUser({
-    email: email.value,
-    username: username.value,
-    password: password.value,
-  });
-  router.replace("/");
 }
 
 async function login() {
-  await userStore.ayLoginUser({
-    email: email.value,
-    password: password.value,
-  });
-  router.replace("/");
+  if (emailCheck(email.value) && passwordCheck(password.value)) {
+    try {
+      await userStore.ayLoginUser({
+        email: email.value,
+        password: password.value,
+      });
+      router.replace("/");
+    } catch (e) {
+      alert("账号或密码错误");
+    }
+  } else {
+    alert("请按照要求填写邮箱和密码");
+  }
 }
 </script>
 

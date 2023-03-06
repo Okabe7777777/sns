@@ -46,7 +46,7 @@ export const usePostStore = defineStore("post", () => {
 
   async function ayUploadPost({ image, description }) {
     await createPost(image, description);
-    ayLoadAllPosts();
+    await ayLoadAllPosts();
     //关闭对话框并清空上传图片
     showPostStore.changeShowPostUpload(false);
   }
@@ -64,7 +64,7 @@ export const usePostStore = defineStore("post", () => {
   }
   async function ayShowPostDetails(id) {
     setCurrentId(id);
-    commentStore.ayLoadAllComments(id);
+    await commentStore.ayLoadAllComments(id);
     showPostStore.changeShowPostDetails(true);
   }
   async function ayHidePostDetails() {
@@ -76,9 +76,9 @@ export const usePostStore = defineStore("post", () => {
     setPostsSearchResult(posts);
   }
 
-  const postDetails = computed(() => {
-    return list.value.find((post) => post.id === currentId.value);
-  });
+  const postDetails = computed(() =>
+    list.value.find((post) => post.id === currentId.value)
+  );
 
   return {
     list,

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { createComment, loadComments } from "../apis/comment";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { usePostStore } from "./post";
 
 export const useCommentStore = defineStore("comment", () => {
@@ -14,7 +14,7 @@ export const useCommentStore = defineStore("comment", () => {
 
   async function ayAddComment({ content, postId }) {
     await createComment(content, postId);
-    ayLoadAllComments(postId);
+    await ayLoadAllComments(postId);
     postStore.increaseCommentCount(postId);
   }
 
@@ -23,10 +23,13 @@ export const useCommentStore = defineStore("comment", () => {
     initializeComments(comments);
   }
 
+  const postComments = computed(() => list.value.reverse());
+
   return {
     list,
     initializeComments,
     ayAddComment,
     ayLoadAllComments,
+    postComments,
   };
 });
