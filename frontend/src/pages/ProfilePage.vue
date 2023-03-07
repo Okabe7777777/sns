@@ -56,8 +56,10 @@ watch(
 );
 
 async function del(id) {
-  await delPost(id);
-  myPosts[0] = await loadPostsByMe();
+  if (confirm("真的要删除吗？")) {
+    await delPost(id);
+    myPosts[0] = await loadPostsByMe();
+  }
 }
 </script>
 

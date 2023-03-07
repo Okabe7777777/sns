@@ -18,13 +18,18 @@ async function register() {
   if (!agreementChecked.value) {
     alert("请先阅读并同意隐私协议和使用规范");
     return;
-  } else {
+  } else if (emailCheck(email.value) && passwordCheck(password.value)) {
     await userStore.ayRegisterUser({
       email: email.value,
       username: username.value,
       password: password.value,
     });
     router.replace("/");
+  } else {
+    alert(
+      "密码最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符"
+    );
+    return;
   }
 }
 
@@ -40,7 +45,10 @@ async function login() {
       alert("账号或密码错误");
     }
   } else {
-    alert("请按照要求填写邮箱和密码");
+    alert(
+      "密码最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符"
+    );
+    return;
   }
 }
 </script>
@@ -51,14 +59,24 @@ async function login() {
     <div class="loginForm">
       <img src="../assets/logo.svg" alt="" />
       <form @submit.prevent>
-        <input type="email" placeholder="邮箱" v-model="email" />
+        <input
+          type="email"
+          placeholder="邮箱"
+          v-model="email"
+          autocomplete="off"
+        />
         <input
           v-if="!isLogin"
           type="text"
           placeholder="用户名"
           v-model="username"
         />
-        <input type="password" placeholder="密码" v-model="password" />
+        <input
+          type="password"
+          placeholder="密码"
+          v-model="password"
+          autocomplete="off"
+        />
         <button
           type="submit"
           class="loginButton"
@@ -131,7 +149,7 @@ input::placeholder {
 }
 
 .loginButton {
-  background: linear-gradient(89.93deg, #00c2ff 0.06%, #0047ff 105.68%);
+  background: linear-gradient(89.93deg, #88dffa 0.06%, #2d59c0 105.68%);
   padding: 12px 0;
   color: white;
   border: none;

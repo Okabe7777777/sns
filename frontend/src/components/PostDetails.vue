@@ -37,14 +37,20 @@ async function addComment() {
         </div>
         <pre class="postDesc">{{ postDetails.description }}</pre>
         <div class="comments">
-          <div class="comment" v-for="comment in postComments">
-            <TheAvatar :src="comment.user?.avatar" />
-            <span class="user">{{ comment.user?.name }}</span>
-            <span class="commentDate">{{
-              dateToRelative(comment.pubDate)
-            }}</span>
-            <p class="commentContent">{{ comment.content }}</p>
-          </div>
+          <TransitionGroup name="list" tag="ul">
+            <div
+              class="comment"
+              v-for="comment in postComments"
+              :key="comment.id"
+            >
+              <TheAvatar :src="comment.user?.avatar" />
+              <span class="user">{{ comment.user?.name }}</span>
+              <span class="commentDate">{{
+                dateToRelative(comment.pubDate)
+              }}</span>
+              <p class="commentContent">{{ comment.content }}</p>
+            </div>
+          </TransitionGroup>
         </div>
         <div class="actions">
           <PostActions
@@ -172,5 +178,17 @@ async function addComment() {
   font-size: 16px;
   margin-left: 20px;
   grid-column: 4 / 6;
+}
+
+.list-move, /* 对移动中的元素应用的过渡 */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: scaleX(0.01) translate(-30px, 0);
 }
 </style>
