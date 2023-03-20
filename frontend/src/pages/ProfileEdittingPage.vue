@@ -33,7 +33,7 @@ async function updateUser() {
 
 <template>
   <div>
-    <h2 class="title">编辑个人资料给</h2>
+    <h2 class="title">编辑个人资料</h2>
     <div class="changeAvatar">
       <TheAvatar :width="48" :height="48" :src="profileData.avatar" />
       <TheButton>修改头像</TheButton>
