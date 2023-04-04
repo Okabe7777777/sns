@@ -8,6 +8,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const showDropdown = ref(false);
+const query = ref("");
 const userStore = useUserStore();
 const postStore = usePostStore();
 const showPostStore = useShowPostStore();
@@ -17,8 +18,8 @@ function publishPost() {
   showPostStore.changeShowPostUpload(true);
 }
 
-async function searchPosts(e) {
-  const term = e.target.value.trim();
+async function searchPosts() {
+  const term = query.value.trim();
   if (term) {
     await postStore.aySearchPosts(term);
     router.push({
@@ -27,7 +28,7 @@ async function searchPosts(e) {
         ...term,
       },
     });
-    e.target.value = "";
+    query.value = "";
   }
 }
 
@@ -42,10 +43,14 @@ async function logout() {
     <router-link to="/">
       <img width="105" height="27" src="../assets/logo.svg" />
     </router-link>
-    <div class="searchInput">
-      <input type="text" @change="searchPosts" />
-      <TheIcon icon="search" />
-    </div>
+
+    <form @submit.prevent="searchPosts">
+      <div class="searchInput">
+        <input type="text" v-model="query" />
+        <TheIcon icon="search" />
+      </div>
+    </form>
+
     <div class="navItems">
       <router-link to="/"><TheIcon icon="home" /></router-link>
       <button
@@ -86,9 +91,9 @@ async function logout() {
 .navbar {
   width: 80vw;
   height: 80px;
-  margin: 0 auto;
+  justify-items: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
   align-items: center;
 }
 .navbar svg {
@@ -102,7 +107,7 @@ async function logout() {
 }
 
 .searchInput input {
-  width: 100%;
+  width: 21vw;
   padding: 12px;
   padding-left: 36px;
   background: #f1f1f1;
