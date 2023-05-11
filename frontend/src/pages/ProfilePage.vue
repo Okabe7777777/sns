@@ -69,14 +69,16 @@ async function del(id) {
       <TheAvatar :width="186" :height="186" :src="userStore.users.avatar" />
       <div class="profile">
         <p class="name">
-          <span>{{ userStore.users.name }}</span>
+          <span>{{ userStore.users.username }}</span>
           <router-link to="/profile/edit">编辑个人资料</router-link>
         </p>
-        <p class="handle">{{ userStore.users.username }}</p>
+        <p class="handle">昵称：{{ userStore.users.name }}</p>
         <div class="description">
-          <pre>{{ userStore.users.intro }}</pre>
+          <pre>简介：{{ userStore.users.intro }}</pre>
         </div>
-        <p class="website">{{ userStore.users.website }}</p>
+        <p>手机号：{{ userStore.users.mobilePhone }}</p>
+        <p>性别：{{ userStore.users.gender === "M" ? "男" : "女" }}</p>
+        <p class="website">网站：{{ userStore.users.website }}</p>
       </div>
     </div>
     <div class="tabs">
