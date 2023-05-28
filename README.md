@@ -1,6 +1,6 @@
 ## 登录注册页
 
-![](https://raw.githubusercontent.com/Okabe7777777/image-data/master/sns/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-05-29%20000624.png?token=GHSAT0AAAAAACDGSXYK3MWMWHY4NLQOGHZWZDTP45Q)
+![](https://raw.githubusercontent.com/Okabe7777777/image-data/master/sns/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-05-29%20000624.png?token=GHSAT0AAAAAACDGSXYKUMIRALVDOQCZTZTOZDTQEEA)
 
 ## 首页帖子展示
 
